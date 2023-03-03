@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import User from "./components/User";
+import users from "./users.json";
 
-function App() {
+const App = () => {
+  const [filter, setFilter] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState(users.results);
+
+  useEffect(() => {
+    if (filter === "male")
+      setFilteredUsers(users.results.filter((user) => user.gender === "male"));
+    else if (filter === "female")
+      setFilteredUsers(
+        users.results.filter((user) => user.gender === "female")
+      );
+    else setFilteredUsers(users.results);
+  }, [filter]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>
+        <a href="/instructions.html"> instructions </a>
+      </h1>
+      <div>
+        <button onClick={(e) => setFilter("male")}>Men</button>
+        <button onClick={(e) => setFilter("female")}>Women</button>
+        <button onClick={(e) => setFilter("")}>Both</button>
+      </div>
+      {filteredUsers.map((user) => (
+        <User user={user} />
+      ))}
     </div>
   );
-}
+};
 
 export default App;
