@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.user {
+  margin: 0.2em 2em;
+}
+
 button {
   font-size: 1.2em;
   margin: 1em 0.3em;
@@ -17,4 +21,10 @@ button:hover {
 
 button:active {
   background-color: blueviolet;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

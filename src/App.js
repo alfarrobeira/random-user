@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import User from "./components/User";
-import users from "./users.json";
+
+const URL = "https://randomuser.me/api/";
 
 const App = () => {
-  const [filter, setFilter] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState(users.results);
+  const [gender, setGender] = useState("");
+  const [users, setUsers] = useState([]);
+  const [resultsNo, setResultsNo] = useState(10);
 
   useEffect(() => {
-    if (filter === "male")
-      setFilteredUsers(users.results.filter((user) => user.gender === "male"));
-    else if (filter === "female")
-      setFilteredUsers(
-        users.results.filter((user) => user.gender === "female")
-      );
-    else setFilteredUsers(users.results);
-  }, [filter]);
+    fetch(`${URL}?results=${resultsNo}&gender=${gender}`)
+      .then((response) => response.json())
+      .then((data) => setUsers(data.results));
+  }, [gender]);
 
   return (
     <div className="App">
@@ -23,13 +21,15 @@ const App = () => {
         <a href="/instructions.html"> instructions </a>
       </h1>
       <div>
-        <button onClick={(e) => setFilter("male")}>Men</button>
-        <button onClick={(e) => setFilter("female")}>Women</button>
-        <button onClick={(e) => setFilter("")}>Both</button>
+        <button onClick={(e) => setGender("male")}>Men</button>
+        <button onClick={(e) => setGender("female")}>Women</button>
+        <button onClick={(e) => setGender("")}>Both</button>
       </div>
-      {filteredUsers.map((user) => (
-        <User user={user} />
-      ))}
+      <div className="container">
+        {users.map((user) => (
+          <User key={user.login.uuid} user={user} />
+        ))}
+      </div>
     </div>
   );
 };
