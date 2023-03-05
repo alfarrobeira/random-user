@@ -10,9 +10,23 @@ const App = () => {
   const [resultsNo, setResultsNo] = useState(10);
 
   useEffect(() => {
-    fetch(`${URL}?results=${resultsNo}&gender=${gender}`)
-      .then((response) => response.json())
-      .then((data) => setUsers(data.results));
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `${URL}?results=${resultsNo}&gender=${gender}`
+        );
+        const data = await response.json();
+        setUsers(data.results);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+
+    // compared to using ".then":
+    // fetch(`${URL}?results=${resultsNo}&gender=${gender}`)
+    //   .then((response) => response.json())
+    //   .then((data) => setUsers(data.results));
   }, [gender]);
 
   return (
