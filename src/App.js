@@ -38,16 +38,15 @@ const App = () => {
         <button onClick={(e) => setGender("male")}>Men</button>
         <button onClick={(e) => setGender("female")}>Women</button>
         <button onClick={(e) => setGender("")}>Both</button>
-        <label for="results">Results: </label>
+        <label htmlFor="select-results">Results: </label>
         <select
           name="results"
           id="select-results"
+          defaultValue={10}
           onChange={(e) => setResultsNo(e.target.value)}
         >
           <option value="5">5</option>
-          <option value="10" selected>
-            10
-          </option>
+          <option value="10">10</option>
           <option value="20">20</option>
           <option value="30">30</option>
           <option value="50">50</option>
