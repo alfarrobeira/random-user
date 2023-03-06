@@ -27,7 +27,7 @@ const App = () => {
     // fetch(`${URL}?results=${resultsNo}&gender=${gender}`)
     //   .then((response) => response.json())
     //   .then((data) => setUsers(data.results));
-  }, [gender]);
+  }, [gender, resultsNo]);
 
   return (
     <div className="App">
@@ -38,6 +38,21 @@ const App = () => {
         <button onClick={(e) => setGender("male")}>Men</button>
         <button onClick={(e) => setGender("female")}>Women</button>
         <button onClick={(e) => setGender("")}>Both</button>
+        <label for="results">Results: </label>
+        <select
+          name="results"
+          id="select-results"
+          onChange={(e) => setResultsNo(e.target.value)}
+        >
+          <option value="5">5</option>
+          <option value="10" selected>
+            10
+          </option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
       </div>
       <div className="container">
         {users.map((user) => (
