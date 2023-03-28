@@ -17,6 +17,7 @@ const App = () => {
         );
         const data = await response.json();
         setUsers(data.results);
+        console.log(data.results);
       } catch (error) {
         console.log(error);
       }
@@ -55,7 +56,8 @@ const App = () => {
       </div>
       <div className="container">
         {users.map((user) => (
-          <User key={user.login.uuid} user={user} />
+          // spread operator ... allows for accessing single props in the child component
+          <User key={user.login.uuid} {...user} />
         ))}
       </div>
     </div>
